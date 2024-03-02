@@ -2,6 +2,19 @@ import "./App.css";
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUsers, fetchPosts, fetchTodos, addTodo } from "./store/index";
+import {
+  Box,
+  Button,
+  Checkbox,
+  FormControl,
+  FormLabel,
+  Input,
+  List,
+  ListItem,
+  VStack,
+  Heading,
+  Text,
+} from "@chakra-ui/react";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -63,61 +76,96 @@ const App = () => {
   }
 
   return (
-    <div>
-      <h1>Users</h1>
-      <div style={{ height: "200px", overflow: "auto" }}>
-        <ul>
+    <VStack spacing={5}>
+      <Heading>Users</Heading>
+      <Box
+        border="1px"
+        borderColor="gray.200"
+        borderRadius="md"
+        p={5}
+        w="100%"
+        maxH="200px"
+        overflowY="auto"
+      >
+        <List spacing={3}>
           {users.map((user) => (
-            <li key={user.id} onClick={() => handleClick(user)}>
+            <ListItem
+              key={user.id}
+              onClick={() => handleClick(user)}
+              _hover={{ bg: "gray.100" }}
+              cursor="pointer"
+            >
               {user.name}
-            </li>
+            </ListItem>
           ))}
-        </ul>
-      </div>
+        </List>
+      </Box>
       {selectedUser && (
-        <div>
-          <h2>{selectedUser.name}</h2>
-          <p>Username: {selectedUser.username}</p>
-          <p>Email: {selectedUser.email}</p>
-          <p>Phone: {selectedUser.phone}</p>
-          <button onClick={handlePostsClick}>Posts</button>
-          <button onClick={handleTodosClick}>Todos</button>
+        <VStack align="start" spacing={5} w="100%">
+          <Heading size="lg">{selectedUser.name}</Heading>
+          <Text>Username: {selectedUser.username}</Text>
+          <Text>Email: {selectedUser.email}</Text>
+          <Text>Phone: {selectedUser.phone}</Text>
+          <Button onClick={handlePostsClick}>Posts</Button>
+          <Button onClick={handleTodosClick}>Todos</Button>
           {display === "posts" &&
             posts.map((post) => (
-              <div key={post.id}>
-                <p>ID: {post.id}</p>
-                <h3>{post.title}</h3>
-                <p>{post.body}</p>
-              </div>
+              <Box
+                key={post.id}
+                border="1px"
+                borderColor="gray.200"
+                borderRadius="md"
+                p={5}
+                w="100%"
+              >
+                <Text mb={2}>ID: {post.id}</Text>
+                <Heading size="md">{post.title}</Heading>
+                <Text>{post.body}</Text>
+              </Box>
             ))}
           {display === "todos" && (
-            <div>
+            <VStack align="start" spacing={5} w="100%">
               {todos.map((todo) => (
-                <div key={todo.id}>
-                  <p>{todo.title}</p>
-                  <p>{todo.completed ? "Completed" : "Not completed"}</p>
-                </div>
+                <Box
+                  key={todo.id}
+                  border="1px"
+                  borderColor="gray.200"
+                  borderRadius="md"
+                  p={5}
+                  w="100%"
+                >
+                  <Heading size="md">{todo.title}</Heading>
+                  <Checkbox isChecked={todo.completed} isReadOnly>
+                    {todo.completed ? "Completed" : "Not completed"}
+                  </Checkbox>
+                </Box>
               ))}
               <form onSubmit={handleNewTodoSubmit}>
-                <input
-                  type="text"
-                  value={newTodoTitle}
-                  onChange={handleNewTodoChange}
-                  placeholder="New todo title"
-                  required
-                />
-                <input
-                  type="checkbox"
-                  checked={newTodoCompleted}
-                  onChange={handleNewTodoCompletedChange}
-                />
-                <button type="submit">Save</button>
+                <FormControl id="new-todo">
+                  <FormLabel>New todo title</FormLabel>
+                  <Input
+                    type="text"
+                    value={newTodoTitle}
+                    onChange={handleNewTodoChange}
+                    required
+                  />
+                  <Checkbox
+                    isChecked={newTodoCompleted}
+                    onChange={handleNewTodoCompletedChange}
+                    mt={2}
+                  >
+                    Completed
+                  </Checkbox>
+                </FormControl>
+                <Button type="submit" colorScheme="blue" mt={2}>
+                  Save
+                </Button>
               </form>
-            </div>
+            </VStack>
           )}
-        </div>
+        </VStack>
       )}
-    </div>
+    </VStack>
   );
 };
 

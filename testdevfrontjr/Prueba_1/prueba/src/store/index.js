@@ -128,11 +128,11 @@ export const addTodo = (todo) => {
   return async (dispatch) => {
     dispatch(fetchDataRequest());
     try {
-      await axios.post(
+      const response = await axios.post(
         `https://jsonplaceholder.typicode.com/users/${todo.userId}/todos`,
         todo
       );
-      dispatch(fetchTodosSuccess(todo.userId));
+      dispatch(fetchTodos(todo.userId));
     } catch (error) {
       dispatch(fetchDataFailure(error.message));
     }
