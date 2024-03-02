@@ -1,7 +1,7 @@
 import "./App.css";
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchUsers, fetchPosts, fetchTodos, addTodo } from "./store/index";
+import { fetchUsers, fetchPosts, fetchTodos, addTodo } from "./store/actions";
 import {
   Box,
   Button,
