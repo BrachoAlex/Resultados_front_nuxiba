@@ -9,6 +9,7 @@ The application will be available at http://localhost:3000.
 ```bash
 git clone https://github.com/BrachoAlex/Resultados_front_nuxiba
 
+cd testdevfrontjr
 cd Prueba_1
 cd prueba
 npm start
