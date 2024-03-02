@@ -11,5 +11,6 @@ git clone https://github.com/BrachoAlex/Resultados_front_nuxiba
 
 cd Prueba_1
 cd prueba
+npm install react react-dom
 npm start
 ```
